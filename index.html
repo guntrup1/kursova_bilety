@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tikets generate</title>
+	<link rel="stylesheet" href="css/libs.min.css">
+	<link rel="stylesheet" href="css/style.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.4/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.4/vfs_fonts.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Конструктор екзаменаційних білетів</h1>
+		<form id="ticketForm">
+			<!-- Кількість білетів -->
+			<label for="ticketCount">Кількість білетів:</label>
+			<input type="number" id="ticketCount" min="1" required>
+
+			<!-- Вибір теми -->
+			<label>Як задавати тему білетів?</label>
+			<div>
+				<input type="radio" id="themeFromFile" name="themeOption" value="file" checked>
+				<label for="themeFromFile">Брати тему з текстових файлів</label>
+			</div>
+			<div>
+				<input type="radio" id="themeManual" name="themeOption" value="manual">
+				<label for="themeManual">Вказувати тему самостійно</label>
+			</div>
+			<div id="manualThemeContainer" style="display: none;">
+				<label for="manualTheme">Тема:</label>
+				<input type="text" id="manualTheme" placeholder="Введіть тему">
+			</div>
+
+			<!-- Чи дозволено повторювати питання -->
+			<label>Чи можна повторювати питання в білетах?</label>
+			<div>
+				<input type="radio" id="allowRepeats" name="repeatOption" value="allow" checked>
+				<label for="allowRepeats">Так</label>
+			</div>
+			<div>
+				<input type="radio" id="noRepeats" name="repeatOption" value="no">
+				<label for="noRepeats">Ні</label>
+			</div>
+
+			<!-- Вибір розподілу питань -->
+			<label>Чи будуть білети поділені на рівні складності?</label>
+			<div>
+				<input type="radio" id="withDifficulty" name="difficultyOption" value="with" checked>
+				<label for="withDifficulty">Так, поділити на рівні</label>
+			</div>
+			<div>
+				<input type="radio" id="withoutDifficulty" name="difficultyOption" value="without">
+				<label for="withoutDifficulty">Ні, всі питання з одного файлу</label>
+			</div>
+
+			<!-- Поле для вибору рівнів складності -->
+			<div id="difficultyContainer">
+				<label for="difficultyLevel">Рівень складності:</label>
+				<select id="difficultyLevel">
+					<option value="">Виберіть рівні складності</option>
+					<option value="easy">Легкий</option>
+					<option value="easyMedium">Легкий та середній</option>
+					<option value="easyMediumHard">Легкий, середній та важкий</option>
+				</select>
+				<div id="fileInputs"></div>
+			</div>
+
+			<!-- Поле для завантаження файлу без рівнів складності -->
+			<div id="singleFileContainer" style="display: none;">
+				<label for="singleFile">Файл з усіма питаннями:</label>
+				<input type="file" id="singleFile" accept=".txt">
+				<label for="singleFileQuestions">Кількість питань для білета:</label>
+				<input type="number" id="singleFileQuestions" min="1" placeholder="Введіть кількість питань">
+			</div>
+
+			<!-- Кнопка генерації -->
+			<button type="button" id="generateTickets" disabled>Генерувати білети</button>
+		</form>
+
+		<!-- Вивід результату -->
+		<div id="output"></div>
+	</div>
+	<script src="./js/script.js"></script>
+</body>
+
+</html>
